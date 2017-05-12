@@ -60,6 +60,11 @@ body {
  .links-container .navbar-link:hover {
      color: rgb(233,50,117);
  }
+
+ .links-container .navbar-link:active {
+     color: rgb(233,50,117);
+     background-color: white;
+ }
  .container {
      margin: 0 auto;
      max-width: 64rem;
@@ -95,4 +100,8 @@ body {
 
  .clearfix::after {
     clear: both;
+ }
+
+ .container.narrow {
+     max-width: 56rem;
  }
