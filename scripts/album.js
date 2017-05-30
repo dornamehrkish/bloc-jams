@@ -84,7 +84,14 @@ var albumMarconi = {
          while (currentParent.className !== targetClass && currentParent.className !== null) {
              currentParent = currentParent.parentElement;
          }
-         return currentParent;
+         if (currentParent.className == targetClass) {
+           return currentParent;
+
+         } else {
+           alert("No parent was found with that class name");
+         } else {
+           alert("No parent found");
+         }
      }
  };
 
