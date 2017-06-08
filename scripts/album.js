@@ -1,6 +1,4 @@
-
-
- var createSongRow = function(songNumber, songName, songLength) {
+var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
@@ -217,15 +215,3 @@ $(document).ready(function() {
   $nextButton.click(nextSong);
 
   });
-
-
-//   var albums = [albumPicasso, albumMarconi, albumFleetFoxes];
-//   var index = 1;
-//   albumImage.addEventListener("click", function(event) {
-//     setCurrentAlbum(albums[index]);
-//     index++;
-//     if (index == albums.length) {
-//       index = 0;
-//     }
-//
-// });
