@@ -177,6 +177,7 @@ var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $mainPlay = $('.main-controls .play-pause');
 
 
 
@@ -184,10 +185,22 @@ $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
-
+  $mainPlay.click(toggleFromPlayerBar);
   });
 
+var toggleFromPlayerBar = function() {
+  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+  if (currentSoundFile.isPaused()) {
+    $currentlyPlayingCell.html(pauseButtonTemplate);
+    $mainPlay.html(playerBarPauseButton);
 
+  } else if (currentSoundFile) {
+    $currentlyPlayingCell.html(pauseButtonTemplate);
+    mainPlay.html(playerBarPlayButton);
+
+  }
+
+};
 //   var albums = [albumPicasso, albumMarconi, albumFleetFoxes];
 //   var index = 1;
 //   albumImage.addEventListener("click", function(event) {
