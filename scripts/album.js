@@ -3,7 +3,7 @@ var createSongRow = function(songNumber, songName, songLength) {
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
 
@@ -24,7 +24,7 @@ var clickHandler = function() {
 
    setSong(songNumber);
    currentSoundFile.play();
-   updateSeekBarWhileSongPlays()
+   updateSeekBarWhileSongPlays();
     $(this).html(pauseButtonTemplate);
    currentSongFromAlbum =  currentAlbum.songs[songNumber - 1];
 
@@ -117,6 +117,7 @@ var clickHandler = function() {
               var $seekBar = $('.seek-control .seek-bar');
 
               updateSeekPercentage($seekBar, seekBarFillRatio);
+              setCurrentTimeInPlayerBar(filterTimeCode(currentTime));
           });
       }
   };
@@ -221,7 +222,24 @@ var getSongNumberCell = function(number) {
    $('.artist-song-mobile').text(currentAlbum.artist + " - " + currentSongFromAlbum);
    $('.main-controls .play-pause').html(playerBarPauseButton);
 
+   setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.length));
+
  };
+
+ var setCurrentTimeInPlayerBar = function(currentTime) {
+     $('.current-time').text(currentTime);
+ };
+
+ var setTotalTimeInPlayerBar = function(totalTime) {
+     $('.total-time').text(totalTime);
+ };
+
+ var filterTimeCode =  function(timeInSeconds) {
+    var seconds = Math.floor(parseFloat(timeInSeconds % 60));
+    var minutes = Math.floor(timeInSeconds / 60);
+
+    return minutes + ':' + seconds;
+};
 
 
  var trackIndex = function(album, song) {
@@ -243,7 +261,7 @@ var getSongNumberCell = function(number) {
      // Set a new current song
      setSong(currentSongIndex + 1);
      currentSoundFile.play();
-     updateSeekBarWhileSongPlays()
+     updateSeekBarWhileSongPlays();
      currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
      // Update the Player Bar information
@@ -269,7 +287,7 @@ var getSongNumberCell = function(number) {
 
    setSong(currentSongIndex + 1);
    currentSoundFile.play();
-   updateSeekBarWhileSongPlays()
+   updateSeekBarWhileSongPlays();
    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
    updatePlayerBarSong();
@@ -294,13 +312,27 @@ var currentVolume = 80;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $mainPlay = $('.main-controls .play-pause');
 
+var toggleFromPlayerBar = function() {
+  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+   if (currentSoundFile.isPaused()) {
+     $currentlyPlayingCell.html(pauseButtonTemplate);
+    $mainPlay.html(playerBarPauseButton);
 
+ } else if (currentSoundFile) {
+     $currentlyPlayingCell.html(pauseButtonTemplate);
+   mainPlay.html(playerBarPlayButton);
+
+ }
+
+};
 
 $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   setupSeekBars();
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
+  $mainPlay.click(toggleFromPlayerBar);
 
   });
